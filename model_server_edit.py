@@ -55,8 +55,7 @@ class AvaxNN(nn.Module):
 
                 # Forward (aka predict)
                 outputs = self.forward(inputs)
-                predictions = np.array(
-                    [[1.0, 0.0] if np.argmax(p.cpu().detach().numpy()) == 0 else [0.0, 1.0] for p in outputs])
+                predictions = outputs
 
                 # Loss + Backprop
                 loss = self.loss_fn(outputs, labels)
@@ -104,8 +103,7 @@ class AvaxNN(nn.Module):
 
                     # Forward (aka predict)
                     outputs = self.forward(inputs)
-                    predictions = np.array(
-                        [[1.0, 0.0] if np.argmax(p.cpu().detach().numpy()) == 0 else [0.0, 1.0] for p in outputs])
+                    predictions = outputs
 
                     # Loss
                     loss = self.loss_fn(outputs, labels)
@@ -162,6 +160,9 @@ class AvaxNN(nn.Module):
     def get_metrics(self, preds, labels, for_class=1):
         TP, FP, TN, FN = 0, 0, 0, 0
 
+        preds = preds.cpu().detach().numpy()
+        labels = labels.cpu().detach().numpy()
+
         # Iterate over all predictions
         for idx in range(len(preds)):
             # If we predicted the sample to be class {for_class}
@@ -202,9 +203,7 @@ class AvaxNN(nn.Module):
                     labels = labels.to(self.device)
                     # Forward (aka predict)
                     outputs = self.forward(inputs)
-                    predictions = np.array(
-                        [[1.0, 0.0] if np.argmax(p.cpu().detach().numpy()) == 0 else [0.0, 1.0] for p in outputs])
-
+                    predictions = outputs
                     if len(result) == 0:
                         result = predictions
                     else:
@@ -255,7 +254,7 @@ class AvaxNN(nn.Module):
                     labels = labels.to(self.device)
                     # Forward (aka predict)
                     outputs = self.forward(inputs)
-                    class_proba = outputs.cpu().detach().numpy()
+                    class_proba = outputs.cpu()
 
                     if len(result) == 0:
                         result = class_proba
@@ -318,7 +317,7 @@ def load_and_process_data(file_path):
 
 def main():
     # Load and process the data
-    train_loader, test_loader = load_and_process_data(r'C:\Users\fujin\Downloads\hate_model_dataset.pt')
+    train_loader, test_loader = load_and_process_data('/nas/home/jfu/data/hate_model_dataset.pt')
 
     # Define the model
     net = AvaxNN(input_size=768, output_size=2, hidden_layers=[512, 256, 128, 64, 32, 16], dropout=0.5)
@@ -351,7 +350,7 @@ def main():
     print('Accuracy of the network on the test inputs: %d %%' % accuracy)
 
     # Write the results to a text file
-    with open(r'C:\Users\fujin\Downloads\results.txt', 'w') as f:
+    with open('/nas/home/jfu/data/results.txt', 'w') as f:
         f.write('Accuracy: %d %%\n' % accuracy)
         f.write('F1 Score: %f\n' % f1_score(labels, predicted))
         f.write('ROC AUC Score: %f\n' % roc_auc_score(labels, hater_probabilities))

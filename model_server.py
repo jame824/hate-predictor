@@ -318,7 +318,7 @@ def load_and_process_data(file_path):
 
 def main():
     # Load and process the data
-    train_loader, test_loader = load_and_process_data(r'C:\Users\fujin\Downloads\hate_model_dataset.pt')
+    train_loader, test_loader = load_and_process_data('/nas/home/jfu/data/hate_model_dataset.pt')
 
     # Define the model
     net = AvaxNN(input_size=768, output_size=2, hidden_layers=[512, 256, 128, 64, 32, 16], dropout=0.5)
@@ -351,7 +351,7 @@ def main():
     print('Accuracy of the network on the test inputs: %d %%' % accuracy)
 
     # Write the results to a text file
-    with open(r'C:\Users\fujin\Downloads\results.txt', 'w') as f:
+    with open('/nas/home/jfu/data/results.txt', 'w') as f:
         f.write('Accuracy: %d %%\n' % accuracy)
         f.write('F1 Score: %f\n' % f1_score(labels, predicted))
         f.write('ROC AUC Score: %f\n' % roc_auc_score(labels, hater_probabilities))
