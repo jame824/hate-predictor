@@ -12,7 +12,7 @@ grab_all_authors.py - obtains the names of all authors in a specified directory 
 
 grab_50k.py - obtains 50k random users from the .txt file created by grab_all_authors.py and outputs to a .txt file
 
-grab_json.py - uses grab_50k's .txt file to create .json files for the comments and submissions of users
+grab_json.py - uses grab_50k's .txt file to create .json files for users from .zst files containing reddit comments and submissions
 
 hate_user_grab.py - script assumes there are folders in the specified directories named in the format "(subreddit)_Users_(Submissions/Comments)," looks to grab 50k users' comments first then grabs those same users' submissions from the other directory if it exists.
 
