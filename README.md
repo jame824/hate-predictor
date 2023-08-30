@@ -19,5 +19,3 @@ hate_user_grab.py - script assumes there are folders in the specified directorie
 model.py and model_server.py - testing versions of model, uses the .pt dataset as an input from the embedding files
 
 model_server_edit.py - model ran on the server, needs more clarification on validation, training, and testing sets.
-
-test.py - displays output of .zst file, script made just to further understand how to work with .zst files
