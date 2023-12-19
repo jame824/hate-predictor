@@ -2,6 +2,8 @@
 
 explanations of files in the repository:
 
+text_analysis.py - processes reddit data from a hate user and random user directory. compares the two datasets by identifying and plotting commonly occurring words and graphing emotion and sentiment.
+
 embedding_df.py and embedding_pt.py - processes, labels, and embeds the text of Reddit users from .json files. embedding_df stores the data in a pandas data frame while embedding_pt directly puts the data into a pytorch dataset. 
 
 embedding_server.py - version edited to run on the donut cluster. edited to have data embedded and added to data frame as a tensor one at a time to preserve memory and only use 30000 users each from specified directories. needs further editing such as editing to not include users with under 2 posts.
